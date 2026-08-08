@@ -9,7 +9,7 @@ class Document(Base):
     document_name: Mapped[str] = mapped_column(String(255),nullable=False)
     current_version:Mapped[int]=mapped_column(Integer,nullable=False,default=1)   
     created_at:Mapped[datetime] = mapped_column(DateTime,nullable=False,server_default=func.now())
-    updated_at:Mapped[datetime] = mapped_column(DateTime,nullable=False,default=datetime.now(timezone.utc),onupdate=datetime.now(timezone.utc))
+    updated_at:Mapped[datetime] = mapped_column(DateTime,nullable=False,server_default=func.now())
 
     user:Mapped["User"]=relationship("User",back_populates="documents")
     document_versions:Mapped[list["DocumentVersion"]]=relationship("DocumentVersion",back_populates="document",cascade="all, delete-orphan")
