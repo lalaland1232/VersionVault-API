@@ -16,7 +16,7 @@ class SignUpRepository:
         self.db.add(user)
         return user
     
-    def sotre_artifact(self,user_id,hashed_password):
+    def store_artifact(self,user_id,hashed_password):
         
         artifact=Artifact(
             artifact_id=user_id,

@@ -16,7 +16,7 @@ class SignUpService:
             self.db.flush()
             salt=bcrypt.gensalt(rounds=12)
             hashed_password=bcrypt.hashpw(request.password.encode('utf-8'),salt)
-            self.repo.sotre_artifact(user_id=user.user_id,hashed_password=hashed_password)
+            self.repo.store_artifact(user_id=user.user_id,hashed_password=hashed_password)
             self.db.commit()
             return {"message":"User created successfully"}
         except Exception as e:
