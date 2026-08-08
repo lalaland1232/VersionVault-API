@@ -17,19 +17,19 @@ class LoginService:
         hashed_password=self.repo.get_hashed_password(user.user_id).artifact
 
         try:
-            bcrypt.checkpw(request.password.encode('utf-8'), hashed_password)
-            access_token = create_access_tokens(data={"sub": str(user.user_id)})
-            refresh_token = create_refresh_tokens(data={"sub": str(user.user_id)})
-            hashed_refresh_token = hashlib.sha256(refresh_token.encode()).digest()
-            create_session(
-                user_id=user.user_id,
-                db=self.db,
-                hashed_refresh_token=hashed_refresh_token,
-                ip_address=req.client.host,
-                device_name=req.headers.get("User-Agent"),
-            )
-            self.db.commit()
-            return {"access_token": access_token, "refresh_token": refresh_token}
+            if bcrypt.checkpw(request.password.encode('utf-8'), hashed_password):
+                access_token = create_access_tokens(data={"sub": str(user.user_id)})
+                refresh_token = create_refresh_tokens(data={"sub": str(user.user_id)})
+                hashed_refresh_token = hashlib.sha256(refresh_token.encode()).digest()
+                create_session(
+                    user_id=user.user_id,
+                    db=self.db,
+                    hashed_refresh_token=hashed_refresh_token,
+                    ip_address=req.client.host,
+                    device_name=req.headers.get("User-Agent"),
+                )
+                self.db.commit()
+                return {"access_token": access_token, "refresh_token": refresh_token}
 
         except Exception as e:
             self.db.rollback()
