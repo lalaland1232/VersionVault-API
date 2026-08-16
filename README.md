@@ -267,6 +267,26 @@ pytest
 
 ---
 
+# Running Project Directly
+
+
+## Clone Repo
+
+```bash
+git clone https://github.com/lalaland1232/VersionVault-API
+```
+
+## create image
+
+``` bash
+docker build -t ai_platform
+```
+
+## Run using compose
+``` bash
+docker compose up
+```
+
 # API Overview
 
 ## Authentication
@@ -308,7 +328,6 @@ Separating routes, services, and repositories keeps business logic independent f
 
 # Future Improvements
 
-- Docker support
 - CI/CD with GitHub Actions
 - Structured logging
 - Custom exception hierarchy
